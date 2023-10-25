@@ -1,0 +1,22 @@
+#Navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.navbar{
+    backdrop-filter: blur(3px) saturate(180%);
+    -webkit-backdrop-filter: blur(3px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+}
+.logo p {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.nav-items {
+    font-family: 'Playfair Display', serif;
+}
+
+.nav-moto {
+    font-family: 'Playfair Display', serif;
+}

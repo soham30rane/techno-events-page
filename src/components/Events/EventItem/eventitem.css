@@ -1,0 +1,64 @@
+.event-popup {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border: 2px solid #3f51b5; /* Adjust the border color */
+    border-radius: 10px;
+    text-align: center;
+    z-index: 3;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    bottom : 20px;
+    right: 20px;
+  }
+  
+  .popup-header {
+    background-color: #3f51b5; /* Header background color */
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .popup-header h2 {
+    font-size: 24px;
+    margin: 0;
+    color: #fff; /* Header text color */
+  }
+  
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .popup-content img {
+    width: 240px;
+    height: 240px; /* Make the image square */
+    border: 2px solid #3f51b5; /* Border color */
+    border-radius: 50%;
+  }
+  /* 
+  button {
+    background-color: #3f51b5; 
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #303f9f;
+  } */
+  
+  /* Rest of the CSS styles for the event popup */
+  
+  
