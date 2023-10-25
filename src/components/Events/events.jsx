@@ -1,9 +1,11 @@
 import { useRef, useState , useEffect } from "react";
 import "./events.css";
-import { motion,stagger,useAnimation } from "framer-motion";
+import { motion,useAnimation } from "framer-motion";
 import EventItem from "./EventItem/eventitem";
+import eventsData from "./data";
 
 const Events = () => {
+  const data = eventsData
   const moveLeftButtonRef = useRef(null);
 
   const control1 = useAnimation()
@@ -15,6 +17,7 @@ const Events = () => {
   const controls = [control1,control2,control3,control4,control5]
   const [controlIndex,setControlIndex] = useState(0)
   const [isAnimating,setIsAnimating]   = useState(false)
+  const [currentIndex,setCurrentIndex] = useState(0)
 
   const getIndexes = () => {
     let newControlIndex = controlIndex % 5
@@ -70,7 +73,7 @@ const Events = () => {
         y:-30
       })
       controls[l].start({
-        x:700,
+        x:700,  
         scale:0.2,
         y:-60
       })
@@ -82,6 +85,7 @@ const Events = () => {
       })
 
       console.log(isAnimating)
+      setCurrentIndex(j)
       setControlIndex(controlIndex + 1)
       setTimeout(() => setIsAnimating(false), 1.5);
   }
@@ -114,7 +118,7 @@ const Events = () => {
       <button className="control-btn" >Move Right</button>
 
       <motion.div 
-        animate={control1}
+        animate={controls[0]}
         initial={{
           scale:1,
           x:0,
@@ -124,11 +128,11 @@ const Events = () => {
           duration:1
         }}
       className="planet front" >
-        <img src={require('../../img/planet2.png')} alt="" />
+        <img src={(currentIndex===0 ?require(`../../img/${data[0].imgname}`) :require('../../img/planet2.png'))} alt="" />
       </motion.div>
 
       <motion.div 
-        animate={control2}
+        animate={controls[1]}
         initial={{
           scale:0.4,
           x:500,
@@ -138,11 +142,11 @@ const Events = () => {
           duration:1
         }}
       className="planet" >
-        <img src={require('../../img/planet3.png')} alt="" />
+        <img src={(currentIndex===1 ?require(`../../img/${data[1].imgname}`) :require('../../img/planet3.png'))} alt="" />
       </motion.div>
 
       <motion.div 
-        animate={control3}
+        animate={controls[2]}
         initial={{
           scale:0.2,
           x:700,
@@ -152,11 +156,11 @@ const Events = () => {
           duration:1
         }}
       className="planet" >
-        <img src={require('../../img/planet4.png')} alt="" />
+        <img src={(currentIndex===2 ?require(`../../img/${data[2].imgname}`) :require('../../img/planet4.png'))} alt="" />
       </motion.div>
 
       <motion.div 
-        animate={control4}
+        animate={controls[3]}
         initial={{
           scale:0.05,
           x:800,
@@ -166,11 +170,11 @@ const Events = () => {
           duration:1
         }}
       className="planet" >
-        <img src={require('../../img/planet5.png')} alt="" />
+        <img src={(currentIndex===3 ?require(`../../img/${data[3].imgname}`) :require('../../img/planet5.png'))} alt="" />
       </motion.div>
 
       <motion.div 
-        animate={control5}
+        animate={controls[4]}
         initial={{
           scale:0.0,
           x:900,
@@ -180,12 +184,12 @@ const Events = () => {
           duration:1
         }}
       className="planet">
-        <img src={require('../../img/planet6.png')} alt="" />
+        <img src={(currentIndex===4 ?require(`../../img/${data[4].imgname}`) :require('../../img/planet6.png'))} alt="" />
       </motion.div>
-      {/* <div className="spaceship">
+      <div className="spaceship">
         <img src={require("../../img/spaceship-small-transperent.png")} alt="" />
-      </div> */}
-      <EventItem />
+      </div>
+      <EventItem title={data[currentIndex].title} imgname={data[currentIndex].imgname} brief={data[currentIndex].brief}/>
     </div>
   );
 };
