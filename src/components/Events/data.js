@@ -7,7 +7,7 @@ let eventsData = [
     },
     {
         id:1,
-        title:"VJTI Robotics Challenge(VRC)",
+        title:"VRC",
         imgname:"vrc.png",
         brief:"VRC stands for VJTI Robotics Challenge, one of the very popular and respected competitions conducted..."
     },
@@ -28,7 +28,19 @@ let eventsData = [
         title:"Smart City",
         imgname:"smartcity.png",
         brief:"Technovanza presents you an opportunity to put forward your thoughts on creating a smarter future fo..."
-    },    
+    },
+    {
+        id:5,
+        title:"Aqua",
+        imgname:"aqua.png",
+        brief:"VJTI Technovanza presents to you Aqua. Aqua is a waterborne event. The theme for this year is buildi..."
+    },
+    {
+        id:6,
+        title:"Escape Room",
+        imgname:"escaperoom.jpg",
+        brief:"In the world of cosmos, you and your team now have a chance to be astronauts and explore the univers..."
+    }
 ]
 
 export default eventsData ;

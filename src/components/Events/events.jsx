@@ -6,21 +6,27 @@ import eventsData from "./data";
 
 const Events = () => {
   const data = eventsData
-  const moveLeftButtonRef = useRef(null);
+  const moveRightButtonRef = useRef(null);
 
+  // You need to create one control for each event that is added to the data 
+  // and add that control to the controls Array. Also update the totalEvents variable
+  const totalEvents = 7
   const control1 = useAnimation()
   const control2 = useAnimation()
   const control3 = useAnimation()
   const control4 = useAnimation()
   const control5 = useAnimation()
+  const control6 = useAnimation()
+  const control7 = useAnimation()
 
-  const controls = [control1,control2,control3,control4,control5]
+
+  const controls = [control1,control2,control3,control4,control5,control6,control7]
   const [controlIndex,setControlIndex] = useState(0)
   const [isAnimating,setIsAnimating]   = useState(false)
   const [currentIndex,setCurrentIndex] = useState(0)
 
   const getIndexes = () => {
-    let newControlIndex = controlIndex % 5
+    let newControlIndex = controlIndex % totalEvents
     let diff = controls.length - newControlIndex
     console.log(diff)
     switch(diff){
@@ -95,7 +101,7 @@ const Events = () => {
     const handleKeyboardEvents = (e) => {
       if (e.key === 'ArrowRight') {
         console.log(`Right key down`)
-        moveLeftButtonRef.current.click()
+        moveRightButtonRef.current.click()
       } else if (e.key === 'ArrowLeft') {
         // Handle right arrow key press
         // Call startAnimation(i) with the appropriate index
@@ -111,81 +117,52 @@ const Events = () => {
     };
   }, []);
 
+  const initials = [
+    {
+      scale:1,
+      x:0,
+      y:40
+    },
+    {
+      scale:0.4,
+      x:500,
+      y:-30
+    },
+    {
+      scale:0.2,
+      x:700,
+      y:-60
+    },
+    {
+      scale:0.05,
+      x:800,
+      y:-80
+    },
+    {
+      scale:0.0,
+      x:900,
+      y:-90
+    }
+  ]
+
   return (
     <div className="events-container">
 
-      <button className="control-btn" onClick={handleMoveLeft} ref={moveLeftButtonRef}>Move left</button>
-      <button className="control-btn" >Move Right</button>
+      <button className="control-btn" >Move left</button>
+      <button className="control-btn" onClick={handleMoveLeft} ref={moveRightButtonRef}>Move Right</button>
 
-      <motion.div 
-        animate={controls[0]}
-        initial={{
-          scale:1,
-          x:0,
-          y:40
-        }}
-        transition={{
-          duration:1
-        }}
-      className="planet front" >
-        <img src={(currentIndex===0 ?require(`../../img/${data[0].imgname}`) :require('../../img/planet2.png'))} alt="" />
-      </motion.div>
+      {data.map((item)=>(
+        <motion.div
+        animate={controls[item.id]}
+        initial={(item.id<5 ? initials[item.id] : initials[4])}
+        transition={{duration:1}}
+        className="planet"
+        >
+          <img src={currentIndex===item.id ? require(`../../img/${data[item.id].imgname}`) :require(`../../img/planet${item.id%5}.png`) } 
+          alt={item.title} />
+        </motion.div>
+      ))}
 
-      <motion.div 
-        animate={controls[1]}
-        initial={{
-          scale:0.4,
-          x:500,
-          y:-30
-        }}
-        transition={{
-          duration:1
-        }}
-      className="planet" >
-        <img src={(currentIndex===1 ?require(`../../img/${data[1].imgname}`) :require('../../img/planet3.png'))} alt="" />
-      </motion.div>
-
-      <motion.div 
-        animate={controls[2]}
-        initial={{
-          scale:0.2,
-          x:700,
-          y:-60
-        }}
-        transition={{
-          duration:1
-        }}
-      className="planet" >
-        <img src={(currentIndex===2 ?require(`../../img/${data[2].imgname}`) :require('../../img/planet4.png'))} alt="" />
-      </motion.div>
-
-      <motion.div 
-        animate={controls[3]}
-        initial={{
-          scale:0.05,
-          x:800,
-          y:-80
-        }}
-        transition={{
-          duration:1
-        }}
-      className="planet" >
-        <img src={(currentIndex===3 ?require(`../../img/${data[3].imgname}`) :require('../../img/planet5.png'))} alt="" />
-      </motion.div>
-
-      <motion.div 
-        animate={controls[4]}
-        initial={{
-          scale:0.0,
-          x:900,
-          y:-90
-        }}
-        transition={{
-          duration:1
-        }}
-      className="planet">
-        <img src={(currentIndex===4 ?require(`../../img/${data[4].imgname}`) :require('../../img/planet6.png'))} alt="" />
-      </motion.div>
       <div className="spaceship">
         <img src={require("../../img/spaceship-small-transperent.png")} alt="" />
       </div>

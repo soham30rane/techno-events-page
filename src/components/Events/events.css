@@ -51,7 +51,7 @@
 .spaceship {
     position: absolute;
     left: 22%; /* Adjust the left and top values to position the spaceship as desired */
-    top: 50%;
+    top: 18%;
     width: 20%; /* Match the size with the planet */
     z-index: 2; /* Set a higher z-index for the spaceship to overlap the planet */
   }
