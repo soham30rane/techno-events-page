@@ -7,6 +7,7 @@ import eventsData from "./data";
 const Events = () => {
   const data = eventsData
   const moveRightButtonRef = useRef(null);
+  const moveLeftButtonRef = useRef(null);
 
   // You need to create one control for each event that is added to the data 
   // and add that control to the controls Array. Also update the totalEvents variable
@@ -26,6 +27,7 @@ const Events = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const getIndexes = () => {
+    console.log(controlIndex);
     let newControlIndex = controlIndex % totalEvents
     let diff = controls.length - newControlIndex
     console.log(diff)
@@ -97,6 +99,70 @@ const Events = () => {
     }
   }
 
+  const handleMoveRight = () => {
+    if (!isAnimating) {
+      setIsAnimating(true)
+      let [i, j, k, l, m] = getIndexes()
+      let a = i === 0 ? totalEvents - 1 : i - 1;
+      
+      console.log(`i=${i}`)
+      console.log(`j=${j}`)
+      console.log(`k=${k}`)
+      console.log(`l=${l}`)
+      console.log(`m=${m}`)
+      console.log(`a=${a}`)
+
+      controls[a].start({
+        scale: 0.0,
+        x: -150 * window.innerWidth / 1536,
+        y: 70 * window.innerHeight / 714,
+        opacity: 1,
+        transition: { duration: 0 }
+      }).then(() => {
+        controls[a].start({
+          x: 0 * window.innerWidth / 1536,
+          scale: 1.2,
+          opacity: 1,
+          y: 40 * window.innerHeight / 714,
+          transition: { duration: 0.5 }
+        })
+      })
+      controls[i].start({
+        x: 500 * window.innerWidth / 1536,
+        scale: 0.4,
+        y: -30 * window.innerHeight / 714
+      })
+      controls[j].start({
+        x: 700 * window.innerWidth / 1536,
+        scale: 0.2,
+        y: -60 * window.innerHeight / 714
+      })
+      controls[k].start({
+        x: 800 * window.innerWidth / 1536,
+        scale: 0.05,
+        opacity: 1,
+        y: -80 * window.innerHeight / 714
+      })
+      controls[l].start({
+        scale: 0.0,
+        x: 900 * window.innerWidth / 1536,
+        y: -90 * window.innerHeight / 714,
+      })
+      controls[m].start({
+        
+      })
+
+      console.log(isAnimating)
+      setCurrentIndex(a)
+      if(controlIndex===0){
+        setControlIndex(totalEvents-1)
+      }else{
+      setControlIndex(controlIndex - 1)
+      }
+      setTimeout(() => setIsAnimating(false), 1.5);
+    }
+  }
+
   const initials = useMemo(() => [
     {
       scale: 1,
@@ -144,25 +210,28 @@ const Events = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
     window.addEventListener("touchmove", handleTouchMove);
-  },[moveRightButtonRef])
+  }, [moveRightButtonRef])
   useEffect(() => {
     const handleScroll = (e) => {
-      // Set the scroll threshold as needed, for example, 100 pixels
       const scrollThreshold = 5;
+      clearInterval(autoClickInterval)
 
       if (e.deltaY < -scrollThreshold || e.deltaY > scrollThreshold) {
         moveRightButtonRef.current.click();
       }
     };
+
     const handleKeyboardEvents = (e) => {
+      clearInterval(autoClickInterval)
       if (e.key === 'ArrowRight') {
-        console.log(`Right key down`)
-        moveRightButtonRef.current.click()
+        moveRightButtonRef.current.click();
       } else if (e.key === 'ArrowLeft') {
+        moveLeftButtonRef.current.click();
         // Handle right arrow key press
         // Call startAnimation(i) with the appropriate index
       }
     };
+
     const handleResize = () => {
       const initialscopy = [
         {
@@ -190,21 +259,30 @@ const Events = () => {
           x: 900 * window.innerWidth / 1536,
           y: -90 * window.innerHeight / 714
         }
-      ]
-      initials.current = initialscopy
-    }
-    // Attach the event listeners when the component mounts
+      ];
+      initials.current = initialscopy;
+    };
+
+    const autoClickInterval = setInterval(() => {
+      if (!isAnimating) {
+        moveRightButtonRef.current.click();
+      }
+    }, 5000); // Click the button every 5 seconds
+
     window.addEventListener('keydown', handleKeyboardEvents);
     window.addEventListener('resize', handleResize);
-    window.addEventListener('wheel', handleScroll)
-    window.addEventListener("touchstart", handleTouchStart);
-    
-    // Clean up the event listeners when the component unmounts
+    window.addEventListener('wheel', handleScroll);
+    window.addEventListener('touchstart', handleTouchStart);
+
     return () => {
       window.removeEventListener('keydown', handleKeyboardEvents);
-      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('wheel', handleScroll);
+      clearInterval(autoClickInterval);
     };
-  }, [initials, moveRightButtonRef, handleTouchStart]);
+  }, [initials, moveRightButtonRef, handleTouchStart, isAnimating]);
+
 
   return (<>
     {/* <img alt='background' src={bgImage} style={{
@@ -216,20 +294,20 @@ const Events = () => {
       left: 0
     }}/> */}
     <div className="events-container">
-      <button className="control-btn" style={{ visibility: "hidden" }} >Move left</button>
+      <button className="control-btn" style={{ visibility: "hidden" }} onClick={handleMoveRight} ref={moveLeftButtonRef}>Move left</button>
       <button className="control-btn" onClick={handleMoveLeft} ref={moveRightButtonRef} style={{ visibility: "hidden" }}>Move Right</button>
       {/* {data.map((item,index) => (
         console.log(item.id)
       ))} */}
-      {data.map((item,index) => (
+      {data.map((item, index) => (
         <motion.div
           animate={controls[item.id]}
           initial={(item.id < 5 ? initials[item.id] : initials[4])}
           transition={{ duration: 1 }}
           className="planet"
-          // style={{
-          //   width: item.id===controlIndex?'28%':'20%',
-          // }}
+        // style={{
+        //   width: item.id===controlIndex?'28%':'20%',
+        // }}
         >
           <img src={currentIndex === item.id ? require(`../../img/${data[item.id].imgname}`) : require(`../../img/planet${item.id % 5}.png`)}
             alt={item.title} />

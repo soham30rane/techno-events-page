@@ -35,6 +35,12 @@
   /* Set a lower z-index for the planet */
 }
 
+@media screen and (max-width: 1200px){
+  .planet{
+    width: 33%;
+  }
+}
+
 .planet img {
   width: 100%;
   height: 100%;
