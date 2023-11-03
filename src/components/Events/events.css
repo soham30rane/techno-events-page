@@ -12,6 +12,10 @@
   z-index: -5;
 }
 
+.dropdown option{
+  background-color:blueviolet;
+  color: grey;  
+}
 
 /* .planet img {
     position: absolute;

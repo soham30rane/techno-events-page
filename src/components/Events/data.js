@@ -41,6 +41,7 @@ let eventsData = [
         imgname:"escaperoom.jpg",
         brief:"In the world of cosmos, you and your team now have a chance to be astronauts and explore the univers..."
     }
+       
 ]
 
 export default eventsData ;

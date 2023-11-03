@@ -11,7 +11,7 @@ const Events = () => {
 
   // You need to create one control for each event that is added to the data 
   // and add that control to the controls Array. Also update the totalEvents variable
-  const totalEvents = 7
+  const totalEvents = data.length;
   const control1 = useAnimation()
   const control2 = useAnimation()
   const control3 = useAnimation()
@@ -104,7 +104,7 @@ const Events = () => {
       setIsAnimating(true)
       let [i, j, k, l, m] = getIndexes()
       let a = i === 0 ? totalEvents - 1 : i - 1;
-      
+
       console.log(`i=${i}`)
       console.log(`j=${j}`)
       console.log(`k=${k}`)
@@ -149,19 +149,58 @@ const Events = () => {
         y: -90 * window.innerHeight / 714,
       })
       controls[m].start({
-        
+
       })
 
       console.log(isAnimating)
       setCurrentIndex(a)
-      if(controlIndex===0){
-        setControlIndex(totalEvents-1)
-      }else{
-      setControlIndex(controlIndex - 1)
+      if (controlIndex === 0) {
+        setControlIndex(totalEvents - 1)
+      } else {
+        setControlIndex(controlIndex - 1)
       }
       setTimeout(() => setIsAnimating(false), 1.5);
     }
   }
+  const setCurrentEvent = async (value) => {
+    let indexof = -1;
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      if (element.title === value) {
+        indexof = i;
+        break;
+      }
+    }
+
+    const rightMoves = (totalEvents + indexof - currentIndex) % totalEvents;
+    const leftMoves = (totalEvents + currentIndex - indexof) % totalEvents;
+    console.log('moves required', leftMoves, rightMoves);
+
+    const moveLeftAsync = async () => {
+      for (let i = 0; i < leftMoves; i++) {
+        if (!isAnimating) {
+          moveLeftButtonRef.current.click();
+          await new Promise((resolve) => setTimeout(resolve, 1500)); // Adjust timing based on animation duration
+        }
+      }
+    };
+
+    const moveRightAsync = async () => {
+      for (let i = 0; i < rightMoves; i++) {
+        if (!isAnimating) {
+          moveRightButtonRef.current.click();
+          await new Promise((resolve) => setTimeout(resolve, 1500)); // Adjust timing based on animation duration
+        }
+      }
+    };
+    if (leftMoves < rightMoves) {
+      await moveLeftAsync();
+    } else {
+      await moveRightAsync();
+    }
+  };
+
+
 
   const initials = useMemo(() => [
     {
@@ -268,7 +307,6 @@ const Events = () => {
         moveRightButtonRef.current.click();
       }
     }, 5000); // Click the button every 5 seconds
-
     window.addEventListener('keydown', handleKeyboardEvents);
     window.addEventListener('resize', handleResize);
     window.addEventListener('wheel', handleScroll);
@@ -284,16 +322,55 @@ const Events = () => {
   }, [initials, moveRightButtonRef, handleTouchStart, isAnimating]);
 
 
-  return (<>
-    {/* <img alt='background' src={bgImage} style={{
-      width: window.innerWidth,
-      height: window.innerHeight,
-      zIndex: -5,
-      position: 'fixed',
-      top: 0,
-      left: 0
-    }}/> */}
+  return (
     <div className="events-container">
+      <select
+        style={{
+          display: "none",
+          
+        }}
+        className="dropdown"
+        value={data[currentIndex].title}
+        onChange={(e) => setCurrentEvent(e.target.value)}
+        onClick={() => {
+          document.getElementById("options").style.display = "block";
+        }}
+      >
+        {data.map((element) => (
+          <option id={element.id} value={element.title}>
+            {element.title}
+          </option>
+        ))}
+      </select>
+
+      <div
+        id="options"
+        style={{
+          display: "flex",
+          backgroundColor: "transparent",
+          color: "grey",
+          border: "none",
+          flexDirection: "row", // Align items horizontally
+          textShadow:'2px 2px 4px rgba(0, 0, 0, 0.5)',
+        }}
+      >
+        {data.map((element) => (
+          <div
+            key={element.id}
+            onClick={(e) => setCurrentEvent(e.target.innerText)}
+            style={{
+              padding: "8px",
+              cursor: "pointer",
+              whiteSpace: "nowrap", // Avoid wrapping of long text
+              textShadow: element.title===data[currentIndex].title?'2px 2px 4px rgba(0, 0, 0, 0.5)':'none',
+              backgroundColor: element.title===data[currentIndex].title?'rgba(0,0,255,0.5)':'transparent',
+            }}
+          >
+            {element.title}
+          </div>
+        ))}
+      </div>
+
       <button className="control-btn" style={{ visibility: "hidden" }} onClick={handleMoveRight} ref={moveLeftButtonRef}>Move left</button>
       <button className="control-btn" onClick={handleMoveLeft} ref={moveRightButtonRef} style={{ visibility: "hidden" }}>Move Right</button>
       {/* {data.map((item,index) => (
@@ -318,7 +395,7 @@ const Events = () => {
         <img src={require("../../img/spaceship-small-transperent.png")} alt="" />
       </div> */}
       <EventItem title={data[currentIndex].title} imgname={data[currentIndex].imgname} brief={data[currentIndex].brief} />
-    </div></>
+    </div>
   );
 };
 
