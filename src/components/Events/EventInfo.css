@@ -1,0 +1,31 @@
+.eventsinfo{
+    background-image: url('../../img/deep-space-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Advent Pro-Bold", Helvetica;
+
+
+}
+
+.borderFadeRight {
+    position: relative;
+    padding: 20px; /* Adjust padding as needed */
+    font-size: 18px; /* Adjust font size as needed */
+    width: 60%; /* Adjust width as needed */
+    margin: 0 auto; /* Centering the content */
+
+    /* Create the fading border */
+    overflow: hidden;
+}
+
+.borderFadeRight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -5px; /* Adjust the width of the fading */
+    width: 100%;
+    z-index: -1;
+    background: linear-gradient(to right, white, transparent);
+}
