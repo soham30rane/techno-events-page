@@ -3,43 +3,71 @@ let eventsData = [
         id:0,
         title:"Robowars",
         imgname:"robowars.png",
-        brief:"Brace yourself, for the warrior within is set to align with the brute outside. For the flames of war..."
+        brief:"Brace yourself, for the warrior within is set to align with the brute outside. For the flames of war...",
+        description: "Brace yourself, for the warrior within is set to align with the brute outside. For the flames of war will hit a fair equinox with the realm of robotics, as the month of February dawns. The extravaganza of technology has supercharged the element of awe.The ultimate Showdown, RoboWars is here with a new category of 15kg, with the original 30 kg and 60 kg bot categories.",
+        venue:"VJTI Quad",
+        date:"TBD",
+        price:"Rs. 3,10,000",
     },
     {
         id:1,
         title:"VRC",
         imgname:"vrc.png",
-        brief:"VRC stands for VJTI Robotics Challenge, one of the very popular and respected competitions conducted..."
+        brief:"VRC stands for VJTI Robotics Challenge, one of the very popular and respected competitions conducted...",
+        description: "VRC stands for VJTI Robotics Challenge, one of the very popular and respected competitions conducted by VJTI Technovanza. VRC 10.0 is based on the theme of guardians of the Mumbai City, which aims to applaud the valiant efforts of our brave police officers on the eve of the dreadful attacks of 26/11.",
+        venue:"Outside CCF",
+        date:"TBD",
+        price:"Rs. 80,000",
     },
     {
         id:2,
         title:"Refaktor",
         imgname:"refaktor.png",
-        brief:"We present you our National Level Hackathon, REFAKTOR, a platform to put your imagination against th..."
+        brief:"We present you our National Level Hackathon, REFAKTOR, a platform to put your imagination against th...",
+        description: "We present you our National Level Hackathon, REFAKTOR, a platform to put your imagination against the young, ignited, and bright minds across the country, where you shall tackle some of the most pressing challenges while blending a culture of product innovation and a problem-solving mindset.",
+        venue:"TPO Hall",
+        date:"24-25th Feb",
+        price:"Rs. 2,00,000",
     },
     {
         id:3,
         title:"CoDefine",
         imgname:"co_define.png",
-        brief:"Presenting CODEFINE, a thrilling event by Technovanza consisting of three tracks that require both s..."
+        brief:"Presenting CODEFINE, a thrilling event by Technovanza consisting of three tracks that require both s...",
+        description: "Presenting CODEFINE, a thrilling event by Technovanza consisting of three tracks that require both skills and smart working ability. Participants are required to complete the task in the given time and produce a solution for their respective track that satisfies the theme.",
+        venue:"DL003",
+        date:"25th Feb",
+        price:"Rs. 80,000",
     },
     {
         id:4,
         title:"Smart City",
         imgname:"smartcity.png",
-        brief:"Technovanza presents you an opportunity to put forward your thoughts on creating a smarter future fo..."
+        brief:"Technovanza presents you an opportunity to put forward your thoughts on creating a smarter future fo...",
+        description: "Technovanza presents you an opportunity to put forward your thoughts on creating a smarter future for the world through this event. The Smart City agenda entails improving the citizens' quality of life, strengthening and diversifying the economy while prioritizing environmental sustainability through adoption of smart solutions.",
+        venue:"Study Space",
+        date:"TBD",
+        price:"Rs. 25,000",
     },
     {
         id:5,
         title:"Aqua",
         imgname:"aqua.png",
-        brief:"VJTI Technovanza presents to you Aqua. Aqua is a waterborne event. The theme for this year is buildi..."
+        brief:"VJTI Technovanza presents to you Aqua. Aqua is a waterborne event. The theme for this year is buildi...",
+        description: "VJTI Technovanza presents to you Aqua. Aqua is a waterborne event. The theme for this year is building a dyson sphere around the sun.",
+        venue:"Textile Garden",
+        date:"TBD",
+        price:"Rs. 15,000",
     },
     {
         id:6,
         title:"Escape Room",
         imgname:"escaperoom.jpg",
-        brief:"In the world of cosmos, you and your team now have a chance to be astronauts and explore the univers..."
+        brief:"In the world of cosmos, you and your team now have a chance to be astronauts and explore the univers...",
+        description: "In the world of cosmos, you and your team now have a chance to be astronauts and explore the universe, which has been the dream since forever. Spaceship X69420 is now recruiting people interested in becoming an astronaut and gaining this wonderful experience wherein they will learn and explore space.",
+        venue:"Al102 AL103",
+        date:"TBD",
+        price:"Rs. 10,000",
     }
        
 ]
